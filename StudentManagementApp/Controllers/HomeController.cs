@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StudentManagementApp.Data;
 using StudentManagementApp.Models;
@@ -22,6 +23,13 @@ namespace StudentManagementApp.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.Courses = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "BCA", Text = "BCA" },
+                new SelectListItem { Value = "BBA", Text = "BBA" },
+                new SelectListItem { Value = "B-TECH", Text = "B-TECH" },
+                new SelectListItem { Value = "BCOM", Text = "BCOM" }
+            };
             return View();
         }
 
@@ -33,8 +41,18 @@ namespace StudentManagementApp.Controllers
             {
                 _context.Add(student);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return Json(new { success = true, message = "Student added successfully" });
+
+                TempData["SuccessMessage"] = "Student record created successfully!";
+                return RedirectToAction(nameof(ListData));
             }
+            ViewBag.Courses = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "BCA", Text = "BCA" },
+                new SelectListItem { Value = "BBA", Text = "BBA" },
+                new SelectListItem { Value = "B-TECH", Text = "B-TECH" },
+                new SelectListItem { Value = "BCOM", Text = "BCOM" }
+            };
             return View(student);
         }
 
@@ -43,6 +61,6 @@ namespace StudentManagementApp.Controllers
             var students = await _context.Students.ToListAsync();
             return View(students);
         }
-
     }
+    
 }

@@ -1,5 +1,124 @@
 ﻿@model Student
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-center mb-4">Enter Student Data</h2>
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="FirstName" class="form-control" placeholder="First Name" />
+                                    <label asp-for="FirstName"></label>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input asp-for="LastName" class="form-control" placeholder="Last Name" />
+                                    <label asp-for="LastName"></label>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="Email" class="form-control" placeholder="Email" />
+                            <label asp-for="Email"></label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select asp-for="Course" asp-items="ViewBag.Courses" class="form-select">
+                                <option value="">-- Select Course --</option>
+                            </select>
+                            <label asp-for="Course"></label>
+                            <span asp-validation-for="Course" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="DateOfBirth" class="form-control" type="date" />
+                            <label asp-for="DateOfBirth"></label>
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+                            <label asp-for="PhoneNumber"></label>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea asp-for="Address" class="form-control" placeholder="Address" style="height: 100px"></textarea>
+                            <label asp-for="Address"></label>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Create</button>
+                        </div>
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                @TempData["SuccessMessage"]
+                            </div>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border: none;
+        border-radius: 15px;
+    }
+
+    .card-body {
+        padding: 2rem;
+    }
+
+    .form-floating > label {
+        padding-left: 1rem;
+    }
+
+    .form-control, .form-select {
+        border-radius: 10px;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+        border: none;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+</style>
+
+
+
+
+
+@* @model Student
+
 <h2>Enter Student Data</h2>
 
 <form asp-action="Create">
@@ -21,7 +140,9 @@
     </div>
     <div class="form-group">
         <label asp-for="Course" class="control-label"></label>
-        <input asp-for="Course" class="form-control" />
+        <select asp-for="Course" asp-items="ViewBag.Courses" class="form-control">
+            <option value="">-- Select Course --</option>
+        </select>
         <span asp-validation-for="Course" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -31,7 +152,7 @@
     </div>
     <div class="form-group">
         <label asp-for="PhoneNumber" class="control-label"></label>
-        <input asp-for="PhoneNumber" class="form-control" />
+        <input asp-for="PhoneNumber" class="form-control" placeholder="" />
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -39,7 +160,13 @@
         <textarea asp-for="Address" class="form-control"></textarea>
         <span asp-validation-for="Address" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
+    <div class="form-group d-flex align-items-end" style="margin-top: 10px;">
+         <input type="submit" value="Create" class="btn btn-primary" />
+     </div>
 </form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+} *@
